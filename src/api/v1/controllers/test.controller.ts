@@ -1,3 +1,5 @@
+import { log } from '../utils';
+
 export const testFunction = () => {
-  console.log('hello world');
+  log.info('hello world');
 };

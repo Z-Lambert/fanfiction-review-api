@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express from 'express';
 // PORT number imported from global constants
 import { PORT } from './config/constants';
 // Pino Logger utility
@@ -7,7 +7,7 @@ import { log } from './api/v1/utils';
 import { home } from './api/v1/routes';
 
 // Initialise express instance
-const app: Application = express();
+const app = express();
 
 // Define port number for server to listen on
 const port = process.env.PORT || PORT;
