@@ -4,8 +4,8 @@ import { log } from '../utils';
 
 const router = express.Router();
 
-// Create a new review
-router.post('/', async (req: Request, res: Response) => {
+// Create a new review for a story by ID
+router.post('/:storyId', async (req: Request, res: Response) => {
   try {
     const review = new Review(req.body);
     await review.save();
@@ -16,21 +16,10 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-// Get all reviews
-router.get('/', async (req: Request, res: Response) => {
+// Get reviews for a story by ID
+router.get('/:storyId', async (req: Request, res: Response) => {
   try {
-    const reviews = await Review.find();
-    res.send(reviews);
-  } catch (err) {
-    log.error(err);
-    res.status(500).send(err);
-  }
-});
-
-// Get a specific review by ID
-router.get('/:id', async (req: Request, res: Response) => {
-  try {
-    const review = await Review.findById(req.params.id);
+    const review = await Review.findById(req.params.storyId);
     if (!review) {
       return res.status(404).send({ message: 'Review not found' });
     }
@@ -41,12 +30,16 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// Update a specific review by ID
-router.put('/:id', async (req: Request, res: Response) => {
+// Update a specific review by review ID
+router.put('/:reviewId', async (req: Request, res: Response) => {
   try {
-    const review = await Review.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const review = await Review.findByIdAndUpdate(
+      req.params.reviewId,
+      req.body,
+      {
+        new: true,
+      }
+    );
     if (!review) {
       return res.status(404).send({ message: 'Review not found' });
     }
@@ -57,10 +50,10 @@ router.put('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// Delete a specific review by ID
-router.delete('/:id', async (req: Request, res: Response) => {
+// Delete a specific review by review ID
+router.delete('/:reviewId', async (req: Request, res: Response) => {
   try {
-    const review = await Review.findByIdAndDelete(req.params.id);
+    const review = await Review.findByIdAndDelete(req.params.reviewId);
     if (!review) {
       return res.status(404).send({ message: 'Review not found' });
     }

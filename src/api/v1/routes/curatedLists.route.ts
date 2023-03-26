@@ -1,13 +1,13 @@
 import express, { Request, Response } from 'express';
 import { log } from '../utils';
-import { ReadingList } from '../models';
+import { CuratedList } from '../models';
 
 const router = express.Router();
 
-// Create a new reading list
+// Create a new curated list
 router.post('/', async (req: Request, res: Response) => {
   try {
-    const readingList = new ReadingList(req.body);
+    const readingList = new CuratedList(req.body);
     await readingList.save();
     res.status(201).send(readingList);
   } catch (err) {
@@ -16,25 +16,25 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-// Get all reading lists
+// Get all curated lists
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const readingLists = await ReadingList.find();
-    res.send(readingLists);
+    const curatedLists = await CuratedList.find();
+    res.send(curatedLists);
   } catch (err) {
     log.error(err);
     res.status(500).send(err);
   }
 });
 
-// Get a specific reading list by ID
+// Get a specific curated list by ID
 router.get('/:id', async (req: Request, res: Response) => {
   try {
-    const readingList = await ReadingList.findById(req.params.id);
-    if (!readingList) {
+    const curatedList = await CuratedList.findById(req.params.id);
+    if (!curatedList) {
       return res.status(404).send({ message: 'Reading list not found' });
     }
-    res.send(readingList);
+    res.send(curatedList);
   } catch (err) {
     log.error(err);
     res.status(500).send(err);
@@ -44,15 +44,15 @@ router.get('/:id', async (req: Request, res: Response) => {
 // Update a specific reading list by ID
 router.put('/:id', async (req: Request, res: Response) => {
   try {
-    const readingList = await ReadingList.findByIdAndUpdate(
+    const curatedList = await CuratedList.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
     );
-    if (!readingList) {
+    if (!curatedList) {
       return res.status(404).send({ message: 'Reading list not found' });
     }
-    res.send(readingList);
+    res.send(curatedList);
   } catch (err) {
     log.error(err);
     res.status(500).send(err);
@@ -62,11 +62,11 @@ router.put('/:id', async (req: Request, res: Response) => {
 // Delete a specific reading list by ID
 router.delete('/:id', async (req: Request, res: Response) => {
   try {
-    const readingList = await ReadingList.findByIdAndDelete(req.params.id);
-    if (!readingList) {
+    const curatedList = await CuratedList.findByIdAndDelete(req.params.id);
+    if (!curatedList) {
       return res.status(404).send({ message: 'Reading list not found' });
     }
-    res.send(readingList);
+    res.send(curatedList);
   } catch (err) {
     log.error(err);
     res.status(500).send(err);

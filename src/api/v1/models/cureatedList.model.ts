@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { IReadingList } from '../interfaces';
+import { ICuratedList } from '../interfaces';
 
-const readingListSchema = new Schema<IReadingList>({
+const curatedListSchema = new Schema<ICuratedList>({
   user_id: { type: Schema.Types.ObjectId, ref: 'User' },
   fanfiction_id: { type: Schema.Types.ObjectId, ref: 'Fanfiction' },
   status: { type: String, enum: ['To Read', 'Reading', 'Completed'] },
@@ -9,7 +9,7 @@ const readingListSchema = new Schema<IReadingList>({
   updated_at: { type: Date, default: Date.now },
 });
 
-export const ReadingList = model<IReadingList>(
+export const CuratedList = model<ICuratedList>(
   'ReadingList',
-  readingListSchema
+  curatedListSchema
 );

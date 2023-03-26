@@ -1,14 +1,14 @@
 import express, { Request, Response } from 'express';
 import { log } from '../utils';
 import { User } from '../models';
+import { createUser, getUser } from '../database';
 
 const router = express.Router();
 
 // Create a new user
 router.post('/', async (req: Request, res: Response) => {
   try {
-    const user = new User(req.body);
-    await user.save();
+    const user = await createUser(req.body);
     res.status(201).send(user);
   } catch (err) {
     log.error(err);
@@ -30,7 +30,7 @@ router.get('/', async (req: Request, res: Response) => {
 // Get a specific user by ID
 router.get('/:id', async (req: Request, res: Response) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = getUser(req.params.id) 
     if (!user) {
       return res.status(404).send({ message: 'User not found' });
     }

@@ -5,6 +5,6 @@ export {
   IQuizQuestion,
   IQuizResult,
 } from './quiz.interface';
-export { IReadingList } from './readinglist.interface';
+export { ICuratedList } from './curatedList.interface';
 export { IReview } from './review.interface';
 export { IUser } from './user.interface';

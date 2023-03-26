@@ -8,6 +8,7 @@ import {
   fanfictionRouter,
   quizRouter,
   readingListRouter,
+  recommendationRouter,
   reviewRouter,
 } from './api/v1/routes';
 import { config } from 'dotenv';
@@ -48,6 +49,7 @@ app.use('/quiz', authenticateJWT, quizRouter);
 app.use('/reading-list', authenticateJWT, readingListRouter);
 app.use('/review', authenticateJWT, reviewRouter);
 app.use('/fanfiction', authenticateJWT, fanfictionRouter);
+app.use('recommendations', recommendationRouter);
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response) => {
