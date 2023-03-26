@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 // PORT number imported from global constants
-import { MONGODB_URI } from './config/constants';
 // Pino Logger utility
 import { log } from './api/v1/utils';
 // Routes defined elsewhere
@@ -25,7 +24,17 @@ config();
 const app = express();
 
 // Database
-connect(MONGODB_URI);
+if (process.env.MONGODB_URI) {
+  connect(process.env.MONGODB_URI)
+    .then(() => {
+      log.info('Connected to MongoDB');
+    })
+    .catch(error => {
+      log.info('Error connecting to MongoDB:', error.message);
+    });
+} else {
+  log.error('MongoDB URI missing from env file');
+}
 
 // Middleware
 app.use(bodyParser.json());

@@ -5,7 +5,7 @@ import { Fanfiction } from '../models';
 const router = express.Router();
 
 // Create a new fanfiction
-router.post('/fanfictions', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
     const fanfiction = new Fanfiction(req.body);
     await fanfiction.save();
@@ -17,7 +17,7 @@ router.post('/fanfictions', async (req: Request, res: Response) => {
 });
 
 // Get all fanfictions
-router.get('/fanfictions', async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const fanfictions = await Fanfiction.find();
     res.send(fanfictions);
@@ -28,7 +28,7 @@ router.get('/fanfictions', async (req: Request, res: Response) => {
 });
 
 // Get a specific fanfiction by id
-router.get('/fanfictions/:id', async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response) => {
   try {
     const fanfiction = Fanfiction.findById(req.params.id);
     if (!fanfiction) {
@@ -42,7 +42,7 @@ router.get('/fanfictions/:id', async (req: Request, res: Response) => {
 });
 
 // Update a specific fanfiction by id
-router.put('/fanfictions/:id', async (req: Request, res: Response) => {
+router.put('/:id', async (req: Request, res: Response) => {
   try {
     const fanfiction = await Fanfiction.findByIdAndUpdate(
       req.params.id,
@@ -61,7 +61,7 @@ router.put('/fanfictions/:id', async (req: Request, res: Response) => {
 });
 
 // Delete a specific fanfiction by id
-router.delete('/fanfictions/:id', async (req: Request, res: Response) => {
+router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const fanfiction = await Fanfiction.findByIdAndDelete(req.params.id);
     if (!fanfiction)

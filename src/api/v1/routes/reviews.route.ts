@@ -5,7 +5,7 @@ import { log } from '../utils';
 const router = express.Router();
 
 // Create a new review
-router.post('/reviews', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
     const review = new Review(req.body);
     await review.save();
@@ -17,7 +17,7 @@ router.post('/reviews', async (req: Request, res: Response) => {
 });
 
 // Get all reviews
-router.get('/reviews', async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const reviews = await Review.find();
     res.send(reviews);
@@ -28,7 +28,7 @@ router.get('/reviews', async (req: Request, res: Response) => {
 });
 
 // Get a specific review by ID
-router.get('/reviews/:id', async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response) => {
   try {
     const review = await Review.findById(req.params.id);
     if (!review) {
@@ -42,7 +42,7 @@ router.get('/reviews/:id', async (req: Request, res: Response) => {
 });
 
 // Update a specific review by ID
-router.put('/reviews/:id', async (req: Request, res: Response) => {
+router.put('/:id', async (req: Request, res: Response) => {
   try {
     const review = await Review.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -58,7 +58,7 @@ router.put('/reviews/:id', async (req: Request, res: Response) => {
 });
 
 // Delete a specific review by ID
-router.delete('/reviews/:id', async (req: Request, res: Response) => {
+router.delete('/:id', async (req: Request, res: Response) => {
   try {
     const review = await Review.findByIdAndDelete(req.params.id);
     if (!review) {

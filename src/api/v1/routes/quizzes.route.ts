@@ -5,7 +5,7 @@ import { Quiz } from '../models';
 const router = express.Router();
 
 // Create a new quiz
-router.post('/quizzes', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   try {
     const quiz = new Quiz(req.body);
     await quiz.save();

@@ -2,12 +2,13 @@ import { Request, Response, NextFunction } from 'express';
 import { verifyAccessToken } from '../auth';
 import { User } from '../models';
 import { IUser } from '../interfaces';
+import { log } from '../utils';
 
 const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
+  log.info(authHeader);
   if (authHeader) {
-    const token = authHeader.split(' ')[1];
-    const payload = verifyAccessToken(token);
+    const payload = verifyAccessToken(authHeader);
     if (payload) {
       User.findById(payload.sub)
         .then((user: IUser | null) => {
